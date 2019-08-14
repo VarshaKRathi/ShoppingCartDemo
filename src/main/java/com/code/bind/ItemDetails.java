@@ -20,8 +20,8 @@ public class ItemDetails {
 	
 	@Override
 	public String toString() {
-		return   "itemName=" + itemName + "\t itemSelectedCategory=" + itemSelectedCategory + "\t itemTotalRating=" + itemTotalRating + "\t cartFinalValue=" + cartFinalValue
-				+ '\n' ;
+		return   "\tItem Name=" + itemName + "\t Selected Category=" + itemSelectedCategory 
+				+ "\n" ;
 	}
 
 	public ItemDetails() {
