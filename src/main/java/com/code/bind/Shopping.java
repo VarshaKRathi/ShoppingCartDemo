@@ -21,20 +21,20 @@ public class Shopping {
 		int choice = 5;
 		String answer = "";
 		ItemDetails item = new ItemDetails();
-		double totalPrice =0;
+		double totalPrice = 0;
 
 		Categories categories = new Categories();
 
 		while (choice > 0) {
 			displayMenu();
 			choice = scanner.nextInt();
-			
+
 			List<Map<Integer, List<Object>>> finalList = new ArrayList<Map<Integer, List<Object>>>();
 			Map<Integer, List<Object>> itemByChoice = new HashMap<Integer, List<Object>>();
 
 			List<Integer> itemList = new ArrayList<Integer>();
 			List<Object> group = new ArrayList<Object>();
-			
+
 			switch (choice) {
 			case 1:
 				Integer category_1 = 1;
@@ -72,6 +72,14 @@ public class Shopping {
 
 			case 2:
 
+				if (finalList.size() < 1) {
+					System.out.print("-----------------------------------------\n");
+					System.out.println("Please Choose Option 1 first to display Item List");
+					System.out.print("-----------------------------------------\n");
+					System.out.print("-----------------------------------------\n");
+					break;
+				}
+
 				double cartValue = 0;
 				System.out
 						.print("\nWould you like to add Item to your cart?\n" + "Type \"Y\" for Yes or \"N\" for No.");
@@ -108,6 +116,18 @@ public class Shopping {
 					item = new ItemDetails();
 					totalPrice = cart.calculateTotalPrice(selectedMap, itemSelectedItemName);
 					int itemRatingTotal = cart.calculateTotalRating(selectedMap, itemSelectedItemName);
+					
+					if ((totalPrice + cartValue) >= cart.finalPriceLimit) {
+						System.out.println("Your Cart Value reached the limit of $50" + "\nPlease pay: $" + cartValue +"\n");
+						item.setCartFinalValue(cartValue);
+						item.setItemTotalRating(itemRatingTotal);
+						break;
+					}
+					// error handlin .... check new variable = totalPrice + cartValue =
+					// cart.getItemTotal(totalPrice);
+					// if new variable >50 error
+
+					
 
 					// Set Selected Item Values in ItemDetails
 					item.setItemName(itemSelectedItemName);
@@ -133,13 +153,7 @@ public class Shopping {
 						System.out.print("Would like to continue Shopping?\n");
 						keepShopping = scanner.next();
 					}
-				} while (keepShopping.equalsIgnoreCase("y") && cartValue < cart.finalPriceLimit);
-
-				if (cartValue >= cart.finalPriceLimit) {
-					System.out.println("Your Cart Value reached the limit of $50" + "\nPlease pay: $" + cartValue);
-				} else {
-					System.out.println("Please pay: $" + cartValue);
-				}
+				} while (keepShopping.equalsIgnoreCase("y"));
 
 				if (keepShopping.equalsIgnoreCase("Y")) {
 				} else {
@@ -152,8 +166,19 @@ public class Shopping {
 
 				// input.close();
 			case 3:
+				if (finalList.size() < 1) {
+					System.out.print("-----------------------------------------\n");
+					System.out.println("Please Choose Option 1 first to display Item List");
+					System.out.print("-----------------------------------------\n");
+					System.out.print("-----------------------------------------\n");
+					break;
+				}
 				String s = cart.toString();
 				System.out.println("Cart=" + cart + "\n");
+				System.out.print("-----------------------------------------\n");
+				System.out.print("Total Cost: \t" + "$" + item.getCartFinalValue() + "\n");
+				System.out.print("Sum of Rating of all Items that were picked : \t" + item.getItemTotalRating() + "\n");
+				System.out.print("-----------------------------------------\n");
 				break;
 			case 4:
 				System.out.print("\n");
@@ -173,7 +198,7 @@ public class Shopping {
 				System.out.println("***Cart got Cleared Successfully***");
 				System.out.print("-----------------------------------------\n");
 				break;
-	
+
 			case 6:
 				System.out.print("\n");
 				System.out.print("\n");
@@ -187,9 +212,11 @@ public class Shopping {
 	public static void displayMenu() {
 		System.out.println("\n*******************************************");
 		System.out.println("Select an Option and enter your choice.   *");
-		System.out.println("1) Display Items with Categories Available to buy.   *");
+		System.out.println(
+				"1) Display Items with Categories Available*\n" + "   to buy.                                *");
 		System.out.println("2) Add items to your cart.                *");
-		System.out.println("3) Display the items in your cart and the *\n" + "   running total.                         *");
+		System.out.println(
+				"3) Display the items in your cart and the *\n" + "   running total.                         *");
 		System.out.println("4) Checkout.                              *");
 		System.out.println("5) Empty your cart.                       *");
 		System.out.println("6) Quit                                   *");
