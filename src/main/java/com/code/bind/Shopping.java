@@ -166,13 +166,6 @@ public class Shopping {
 
 				// input.close();
 			case 3:
-				if (finalList.size() < 1) {
-					System.out.print("-----------------------------------------\n");
-					System.out.println("Please Choose Option 1 first to display Item List");
-					System.out.print("-----------------------------------------\n");
-					System.out.print("-----------------------------------------\n");
-					break;
-				}
 				String s = cart.toString();
 				System.out.println("Cart=" + cart + "\n");
 				System.out.print("-----------------------------------------\n");
